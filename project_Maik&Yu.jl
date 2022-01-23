@@ -275,6 +275,13 @@ begin
 	end
 end
 
+# ╔═╡ 0f49a6a9-7e74-4139-b68a-ea54b22b3e85
+md"
+### Remarks
+
+The first approach yields a closer result to the paper, while the second approach is theoratically more appealing since the optimal investment $\mu$ is endogenously computed. We believe that the paper exploits Taylor approximation (the first approach) to simulate, which eases a lot of computation without losing too much accuracy. Here we provide another way to approach the problem.
+"
+
 # ╔═╡ 846992a0-2239-41ac-b891-511833103b5c
 md"
 ## Section 2: Optimum Prize Structure
@@ -367,25 +374,20 @@ t2 = Table(σ² = σ₂², μ_1 = μ.(25,σ₂²), μ_2 = μ₂_2, μ✶_1 = μ�
 md"
 ## Section 3 Visualization
 
-We also visualized the results with the following graphs. It can be shown that the expected utility under contest drops rapidly, relative to the one under piece rate. Indeed, the paper shows that when y₀ = 100, the contest yields a higher expected utility when σ² < 3; when y₀ = 25, same result holds for σ² < 0.2 only. However, we can only show that it is 'likely' to have the single crossing, which happens at a low level of variance. We cannot replicate this result. Yet, similar to the paper, we conclude that for large variance of shocks, the piece rate is preferable in terms of welfare.
+We also visualized the results with the following graphs. To be consistent, we take the values under the first approach. It can be shown that the expected utility under contest drops rapidly, relative to the one under piece rate. Indeed, the paper shows that when y₀ = 100, the contest yields a higher expected utility when σ² < 3; when y₀ = 25, same result holds for σ² < 0.2 only. However, we cannot replicate this result. Yet, similar to the paper, we conclude that for large variance of shocks, the piece rate is preferable in terms of welfare.
 "
 
 # ╔═╡ 5f548cc8-f9ed-45a7-b66b-b16d8cebc7d3
 begin
-	plot(σ₁², EU✶₁, label = "EU✶ (under contest)", title = "Expected utility when y₀ = 100")
+	plot(σ₁², EU✶₁, label = "EU✶ (under contest)", title = "Expected utility when y₀ = 100", xlabel =  ("σ²"))
 	plot!(σ₁², EU₁_1, label = "EU (under piece rate)")
 end
 
 # ╔═╡ c0044aa8-d785-4298-8146-a2b6534070c8
 begin
-	plot(σ₂², EU✶₂, label = "EU✶ (under contest)", title = "Expected utility when y₀ = 25")
+	plot(σ₂², EU✶₂, label = "EU✶ (under contest)", title = "Expected utility when y₀ = 25", xlabel =  ("σ²"))
 	plot!(σ₂², EU₂_1, label = "EU (under piece rate)")
 end
-
-# ╔═╡ 43a683e9-e2a5-48a4-b77a-7d7933f4fd62
-md"
-The last thing we want to note is that, we found both approaches of computing μ✶ to be plausible. The first approach is to directly exploit the Taylor approxiation given in the paper, with the non-labor income y₀ as a proxy to the mean income. The obtained values are closer to the paper. The second approach is to start from the optimization problem in the model. The methodology is theoratically more convincing. Therefore, we choose to report both.
-"
 
 # ╔═╡ a373ce60-c560-494d-bbcb-f1fe73069a72
 md"
@@ -409,10 +411,15 @@ begin
 		mu✶[i] = maxEU✶(σ₁²[i], y)[2]
 	end
 
-	plot(σ₁², EU✶, label = "EU✶ (under contest)", title = "Expected utility when y₀ = $y")
+	plot(σ₁², EU✶, label = "EU✶ (under contest)", title = "Expected utility when y₀ = $y ", xlabel =  ("σ²"))
 	plot!(σ₁², EU, label = "EU (under piece rate)")
 
 end
+
+# ╔═╡ 37bdbe62-17a0-4e69-b863-109f41aac34c
+md"
+In general, among different levels of non-labor income $y_0$, the above result still holds.
+"
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
@@ -1615,17 +1622,18 @@ version = "0.9.1+5"
 # ╠═0615d43a-6486-47cd-9828-cdd9b16fe61f
 # ╠═57bfae79-fdc0-4d5b-b816-896717f4edfd
 # ╠═da20fdc9-d8cd-4a73-a0d2-9e074dff478f
+# ╟─0f49a6a9-7e74-4139-b68a-ea54b22b3e85
 # ╟─846992a0-2239-41ac-b891-511833103b5c
 # ╠═62ea4861-6c9f-4c16-a492-72af36b866f2
-# ╠═7d4f06de-f312-4a10-aa14-673491a628a5
+# ╟─7d4f06de-f312-4a10-aa14-673491a628a5
 # ╠═5f9f748f-9339-4659-9ced-c5087d0d3001
 # ╠═db0b6a55-7e98-4e41-a7b4-f4f6decc347b
-# ╠═c6a43887-0405-44a7-a092-34a6e2a0203e
+# ╟─c6a43887-0405-44a7-a092-34a6e2a0203e
 # ╠═5f548cc8-f9ed-45a7-b66b-b16d8cebc7d3
 # ╠═c0044aa8-d785-4298-8146-a2b6534070c8
-# ╠═43a683e9-e2a5-48a4-b77a-7d7933f4fd62
-# ╠═a373ce60-c560-494d-bbcb-f1fe73069a72
+# ╟─a373ce60-c560-494d-bbcb-f1fe73069a72
 # ╠═bdd94f97-d119-4b21-b6a2-202104986641
 # ╠═06af1b3e-c7ad-439f-8ce4-10139b852806
+# ╠═37bdbe62-17a0-4e69-b863-109f41aac34c
 # ╟─00000000-0000-0000-0000-000000000001
 # ╟─00000000-0000-0000-0000-000000000002
